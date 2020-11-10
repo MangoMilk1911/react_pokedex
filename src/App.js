@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import PokemonList from "./PokemonList";
+import PokemonList from "./PokemonList.js";
 import axios from "axios";
-import Pagination from "./Pagination";
+import Pagination from "./Pagination.js";
+import style from './styling.css';
 
 function App() {
   const [pokemon, setPokemon] = useState([]);
+  const [primaryType, setPrimaryType] = useState();
+  const [pokemonURL, setPokemonURL] = useState();
+  const [colour, setColour] = useState();
   const [currentPageUrl, setCurrentPageUrl] = useState(
     "https://pokeapi.co/api/v2/pokemon/?limit=36"
   );
@@ -13,18 +17,20 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(true); 
     let cancel;
     axios
       .get(currentPageUrl, {
         cancelToken: new axios.CancelToken((c) => (cancel = c)),
       })
       .then((res) => {
+        console.log(res)
+        setPokemon(res.data.results)
         setLoading(false);
         setNextPageUrl(res.data.next);
         setPreviousPageUrl(res.data.previous);
-        setPokemon(res.data.results.map((p) => p.name));
-      });
+        setPokemonURL(res.data.results.map((p) => p.url));
+      })
 
     return () => {
       cancel();
@@ -43,10 +49,10 @@ function App() {
 
   return (
     <>
-      <PokemonList pokemon={pokemon} />
+      <PokemonList className={style.pokemon} pokemonList={pokemon} type={primaryType} />
       <Pagination
-        goToNextPage={goToNextPage}
-        goToPreviousPage={goToPreviousPage}
+        goToNextPage={nextPageUrl ? goToNextPage : null}
+        goToPreviousPage={previousPageUrl ? goToPreviousPage : null}
       />
     </>
   );
