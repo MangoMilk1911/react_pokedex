@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import PokemonList from "./PokemonList.js";
+import PokemonList from "./components/PokemonList.js";
 import axios from "axios";
-import Pagination from "./Pagination.js";
+import Pagination from "./components/Pagination.js";
 import style from './styling.css';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true); 
+    setLoading(true);
     let cancel;
     axios
       .get(currentPageUrl, {
