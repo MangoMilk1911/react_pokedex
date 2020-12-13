@@ -1,10 +1,11 @@
 import React from 'react'
+import { Button } from "@material-ui/core"
 
-export default function Pagination({goToNextPage, goToPreviousPage}) {
+export default function Pagination({ goToNextPage, goToPreviousPage }) {
     return (
-        <div>
-            {goToPreviousPage && <button onClick={goToPreviousPage}>Previous</button>}
-            {goToNextPage && <button onClick={goToNextPage}>Next</button>}
-        </div>
+        <>
+            {goToPreviousPage && <Button variant="contained" color="primary" onClick={goToPreviousPage}>Previous</Button>}
+            {goToNextPage && <Button variant="contained" color="primary" onClick={goToNextPage}>Next</Button>}
+        </>
     )
 }
