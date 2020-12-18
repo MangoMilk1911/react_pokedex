@@ -3,7 +3,8 @@ import PokemonCard from "./components/PokemonCard.js";
 import axios from "axios";
 import Pagination from "./components/Pagination.js";
 import style from './styling.css';
-import { TextField, MenuItem, makeStyles, Grid } from "@material-ui/core"
+import { Box, TextField, MenuItem, makeStyles, Grid } from "@material-ui/core"
+
 
 
 function App() {
@@ -28,7 +29,6 @@ function App() {
     { label: 'Gen 5' },
     { label: 'Gen 6' },
     { label: 'Gen 7' },
-    { label: 'Gen 8' },
   ]
 
   const useStyles = makeStyles((theme) => ({
@@ -116,9 +116,12 @@ function App() {
           </div>
         </form>
       </Grid>
-      {pokemonData.map((p) => (
-        <PokemonCard pokemonData={p} />
-      ))}
+
+      <Box display="flex" flexWrap="wrap" justifyContent="space-between" maxWidth={2304} >
+        {pokemonData.map((p) => (
+          <PokemonCard pokemonData={p} />
+        ))}
+      </Box>
 
       <Pagination
         goToNextPage={nextPageUrl ? goToNextPage : null}
