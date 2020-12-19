@@ -18,3 +18,13 @@ export const typingColours = {
     steel: '#ABA9BE',
     fairy: '#F9A8EF',
 }
+
+export const generations = [
+    { label: 'Gen 1' },
+    { label: 'Gen 2' },
+    { label: 'Gen 3' },
+    { label: 'Gen 4' },
+    { label: 'Gen 5' },
+    { label: 'Gen 6' },
+    { label: 'Gen 7' },
+]

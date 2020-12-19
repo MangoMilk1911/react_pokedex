@@ -4,6 +4,7 @@ import axios from "axios";
 import Pagination from "./components/Pagination.js";
 import style from './styling.css';
 import { Box, TextField, MenuItem, makeStyles, Grid } from "@material-ui/core"
+import { generations } from "./lib/lib"
 
 
 
@@ -21,15 +22,6 @@ function App() {
   const [previousPageUrl, setPreviousPageUrl] = useState();
   const [loading, setLoading] = useState(true);
 
-  const generations = [
-    { label: 'Gen 1' },
-    { label: 'Gen 2' },
-    { label: 'Gen 3' },
-    { label: 'Gen 4' },
-    { label: 'Gen 5' },
-    { label: 'Gen 6' },
-    { label: 'Gen 7' },
-  ]
 
   const useStyles = makeStyles((theme) => ({
     root: {
