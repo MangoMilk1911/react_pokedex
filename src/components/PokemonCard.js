@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Grid, Typography, createMuiTheme, CardMedia, Badge, makeStyles, CardActionArea, Paper, Modal, Card, CardContent, Button } from "@material-ui/core"
-import { typingColours } from "../lib/typingColours"
+import { Box, Grid, Typography, createMuiTheme, CardMedia, Badge, makeStyles, CardActionArea, Paper, Modal, Card, CardContent, Button, Dialog } from "@material-ui/core"
+import { typingColours } from "../lib/lib"
 import { useStyles } from "../lib/styles"
 import { motion } from "framer-motion"
-
+import Header from "./ModalHeader"
+import PokemonModal from "./PokemonModal"
 
 
 function rand() {
@@ -15,19 +16,23 @@ function getModalStyle() {
   const left = 50 + rand();
 
   return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
+    // top: `${top}%`,
+    // left: `${left}%`,
+    // transform: `translate(-${top}%, -${left}%)`,
+
   };
 }
 
 export default function PokemonCard({ pokemonData }) {
 
   const useStyles = makeStyles((theme) => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-      },
+    modal: {
+      position: 'fixed',
+      width: 400,
+      backgroundColor: theme.palette.background.paper, // FIGURE OUT HOW TO MAKE IT SAME AS TYPECOLOUR
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
     },
   }));
 
@@ -40,9 +45,9 @@ export default function PokemonCard({ pokemonData }) {
   const kappa = (name) => {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
-  const pokemonImg = "https://img.pokemondb.net/artwork/vector/" + name + ".png"
+  const pokemonImg = "https://pokeres.bastionbot.org/images/pokemon/" + id + ".png"
 
-  const [modalStyle] = React.useState(getModalStyle);
+  const [modalStyle] = React.useState(getModalStyle());
   const [open, setOpen] = React.useState(false);
 
 
@@ -55,8 +60,9 @@ export default function PokemonCard({ pokemonData }) {
   };
 
   const pokemonModal = (
-    <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Text in a modal</h2>
+    <div style={{ backgroundColor: { typeColour } }} style={modalStyle} className={classes.modal} >
+      <h2 style={{ textAlign: 'center' }} id="simple-modal-title">{kappa(name)}</h2>
+      <Header />
       <p id="simple-modal-description">
         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
       </p>
@@ -85,14 +91,25 @@ export default function PokemonCard({ pokemonData }) {
 
         </Button>
       </Card>
-      <Modal
+
+
+
+      <Dialog
+        maxWidth={'xl'}
+        style={{ backgroundColor: { typeColour }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        {pokemonModal}
-      </Modal>
+        <PokemonModal
+          pokemonData={pokemonData}
+          name={kappa(name)}
+          typeColour={typeColour}
+        >
+
+        </PokemonModal>
+      </Dialog>
 
     </>
 
